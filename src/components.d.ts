@@ -53,6 +53,7 @@ declare global {
   namespace JSXElements {
     export interface MyRatingAttributes extends HTMLAttributes {
       'maxValue'?: number;
+      'onOnRatingUpdated'?: (event: CustomEvent) => void;
       'value'?: number;
     }
   }

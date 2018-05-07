@@ -1,4 +1,4 @@
-import  { Component, Prop, State } from  '@stencil/core';
+import  { Component, Prop, State, EventEmitter, Event } from  '@stencil/core';
 
 @Component({
   tag: 'my-rating',
@@ -7,9 +7,11 @@ import  { Component, Prop, State } from  '@stencil/core';
 })
 export  class  MyRatingComponent  {
   @Prop() maxValue: number = 5;
-  @Prop() value: number = 0;
+  @Prop({ mutable: true }) value: number = 0;
 
   @State() starList: Array<object> = [];
+
+  @Event() onRatingUpdated: EventEmitter;
 
   componentWillLoad() {
     this.createStarList(this.value);
@@ -18,6 +20,7 @@ export  class  MyRatingComponent  {
   setValue(newValue) {
     this.value = newValue;
     this.createStarList(this.value);
+    this.onRatingUpdated.emit({ value: this.value });
   }
 
   createStarList(numberOfStars: number) {
