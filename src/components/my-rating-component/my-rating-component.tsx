@@ -1,4 +1,4 @@
-import  { Component, Prop } from  '@stencil/core';
+import  { Component, Prop, State } from  '@stencil/core';
 
 @Component({
   tag: 'my-rating',
@@ -8,6 +8,12 @@ import  { Component, Prop } from  '@stencil/core';
 export  class  MyRatingComponent  {
   @Prop() maxValue: number = 5;
   @Prop() value: number = 0;
+
+  @State() starList: Array<object> = [];
+
+  componentWillLoad() {
+    this.createStarList();
+  }
 
   createStarList() {
     let starList = [];
@@ -20,13 +26,13 @@ export  class  MyRatingComponent  {
       }
     }
 
-    return starList;
+    this.starList = starList;
   }
 
   render() {
     return  (
       <div>
-        {this.createStarList()}
+        {this.starList}
       </div>
     );
   }
