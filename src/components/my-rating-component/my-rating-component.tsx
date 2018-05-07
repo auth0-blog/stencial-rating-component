@@ -12,17 +12,22 @@ export  class  MyRatingComponent  {
   @State() starList: Array<object> = [];
 
   componentWillLoad() {
-    this.createStarList();
+    this.createStarList(this.value);
   }
 
-  createStarList() {
+  setValue(newValue) {
+    this.value = newValue;
+    this.createStarList(this.value);
+  }
+
+  createStarList(numberOfStars: number) {
     let starList = [];
 
     for (let i = 1; i <= this.maxValue; i++) {
-      if (i <= this.value) {
-        starList.push(<span class="rating">&#x2605;</span>);
+      if (i <= numberOfStars) {
+        starList.push(<span class="rating" onMouseOver={() => this.createStarList(i)} onMouseOut={() => this.createStarList(this.value)} onClick={() => this.setValue(i)}>&#x2605;</span>);
       } else {
-        starList.push(<span class="rating" >&#x2606;</span>);
+        starList.push(<span class="rating" onMouseOver={() => this.createStarList(i)} onMouseOut={() => this.createStarList(this.value)} onClick={() => this.setValue(i)}>&#x2606;</span>);
       }
     }
 
